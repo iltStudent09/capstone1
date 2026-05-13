@@ -1,5 +1,88 @@
+@media (max-width: 992px) {
+	.navbar-brand {
+		font-size: 1.5rem;
+	}
+	.display-3 {
+		font-size: 2.5rem;
+	}
+	.card {
+		font-size: 1rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.navbar-brand {
+		font-size: 1.25rem;
+	}
+	.display-3 {
+		font-size: 2rem;
+	}
+	.card {
+		font-size: 0.98rem;
+		margin-bottom: 1.5rem;
+	}
+	footer h2 {
+		font-size: 1.3rem;
+	}
+}
+
+@media (max-width: 576px) {
+	.container, .container-fluid {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.navbar-brand {
+		font-size: 1rem;
+	}
+	.display-3 {
+		font-size: 1.3rem;
+	}
+	.card {
+		font-size: 0.93rem;
+	}
+	footer h2 {
+		font-size: 1rem;
+	}
+}
+footer h2, footer p {
+	color: #fff;
+}
+
 *, *::before, *::after {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.header-padding {
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.header-margin {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+
+footer h2 {
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+}
+
+footer p {
+	margin-bottom: 0.5rem;
+}
+
+.card {
+	transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+	box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.12);
+	transform: translateY(-6px) scale(1.03);
+}
+
+@media (max-width: 768px) {
 }
