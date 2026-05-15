@@ -29,7 +29,7 @@ jobs:
 
       - name: Check required asset files exist
         run: |
-          for f in css/styles.css js/quote.js js/main.js; do
+          for f in css/style.css js/quote.js js/main.js; do
             if [ ! -f "$f" ]; then
               echo "::error file=$f::Missing required asset file: $f" && exit 1
             else
