@@ -1,0 +1,74 @@
+name: Validate and Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check required HTML files exist
+        run: |
+          for f in index.html quote.html about.html faq.html; do
+            if [ ! -f "$f" ]; then
+              echo "::error file=$f::Missing required HTML file: $f" && exit 1
+            else
+              echo "Found $f"
+            fi
+          done
+
+      - name: Check required asset files exist
+        run: |
+          for f in css/styles.css js/quote.js js/main.js; do
+            if [ ! -f "$f" ]; then
+              echo "::error file=$f::Missing required asset file: $f" && exit 1
+            else
+              echo "Found $f"
+            fi
+          done
+
+      - name: Validate HTML structure
+        run: |
+          status=0
+          for f in index.html quote.html about.html faq.html; do
+            if ! grep -qi '<!DOCTYPE html>' "$f"; then
+              echo "::error file=$f::Missing <!DOCTYPE html> declaration" && status=1
+            else
+              echo "$f contains <!DOCTYPE html>"
+            fi
+            if ! grep -Eqi '<html[^>]*lang=' "$f"; then
+              echo "::error file=$f::Missing lang attribute in <html> tag" && status=1
+            else
+              echo "$f contains lang attribute"
+            fi
+          done
+          exit $status
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v4
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
