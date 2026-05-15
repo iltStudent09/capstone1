@@ -1,3 +1,6 @@
+// --- Quote comparison state ---
+let firstQuote = null;
+let isComparing = false;
 // --- Sync card selection with dropdown ---
 document.addEventListener('DOMContentLoaded', function () {
   const autoCard = document.querySelector('label[for="radio-auto"]');
@@ -443,6 +446,13 @@ function applyCreditAdjustment(premium, rating) {
 
 
 function renderQuoteSummary(name, type, basePremium, breakdown) {
+  // If in compare mode and firstQuote exists, show both quotes side by side
+  if (isComparing && firstQuote) {
+    renderComparisonSummary({ name, type, basePremium, breakdown }, firstQuote);
+    isComparing = false;
+    firstQuote = null;
+    return;
+  }
   let typeLabel = '';
   if (type === 'auto') typeLabel = 'Auto Insurance';
   else if (type === 'home') typeLabel = 'Home Insurance';
@@ -470,11 +480,16 @@ function renderQuoteSummary(name, type, basePremium, breakdown) {
         </thead>
         <tbody id="breakdownTableBody"></tbody>
       </table>
-      <button id="getAnotherQuoteBtn" class="btn btn-secondary mt-3">Get Another Quote</button>
+      <div class="d-flex gap-2 mt-3">
+        <button id="getAnotherQuoteBtn" class="btn btn-secondary">Get Another Quote</button>
+        <button id="compareQuotesBtn" class="btn btn-primary">Compare Quotes</button>
+        <button id="saveQuoteBtn" class="btn btn-success">Save Quote</button>
+      </div>
       <p class="disclaimer mt-2">
         This is a sample estimate for demo purposes only and is not a binding insurance offer.
       </p>
     </div>
+    <div id="savedQuotesSection" class="mt-4"></div>
   `;
 
   // Set summary values safely
@@ -500,10 +515,185 @@ function renderQuoteSummary(name, type, basePremium, breakdown) {
     results.classList.add('hidden');
     results.innerHTML = '';
     window.scrollTo({ top: quoteForm.offsetTop, behavior: 'smooth' });
+    isComparing = false;
+    firstQuote = null;
   });
+
+
+  // Add event listener for Save Quote button
+  document.getElementById('saveQuoteBtn').addEventListener('click', () => {
+    const quoteData = {
+      name,
+      type,
+      basePremium,
+      annualPremium,
+      breakdown,
+      date: new Date().toLocaleString()
+    };
+    var quotes = JSON.parse(localStorage.getItem('savedQuotes')) || [];
+    quotes.push(quoteData);
+    localStorage.setItem('savedQuotes', JSON.stringify(quotes));
+    renderSavedQuotes();
+    alert('Quote saved!');
+  });
+
+  // Add event listener for Compare Quotes button
+  document.getElementById('compareQuotesBtn').addEventListener('click', () => {
+    firstQuote = { name, type, basePremium, breakdown };
+    isComparing = true;
+    quoteForm.reset();
+    document.getElementById('insuranceType').value = 'auto';
+    document.getElementById('radio-auto').checked = true;
+    autoFields.classList.remove('hidden');
+    homeFields.classList.add('hidden');
+    lifeFields.classList.add('hidden');
+    clearValidation();
+    results.classList.add('hidden');
+    results.innerHTML = '';
+    window.scrollTo({ top: quoteForm.offsetTop, behavior: 'smooth' });
+  });
+
+  // Show saved quotes section
+  renderSavedQuotes();
+// Render side-by-side quote comparison
+function renderComparisonSummary(quote2, quote1) {
+  // Find all unique factors
+  const allFactors = Array.from(new Set([
+    ...quote1.breakdown.map(r => r.factor),
+    ...quote2.breakdown.map(r => r.factor)
+  ]));
+
+  // Helper to get row by factor
+  function getRow(breakdown, factor) {
+    return breakdown.find(r => r.factor === factor) || { info: '', impact: '' };
+  }
+
+  // Highlight differences
+  function highlight(val1, val2) {
+    return val1 !== val2 ? 'table-warning' : '';
+  }
+
+  let rows = allFactors.map(factor => {
+    const row1 = getRow(quote1.breakdown, factor);
+    const row2 = getRow(quote2.breakdown, factor);
+    return `
+      <tr>
+        <td>${escapeHtml(factor)}</td>
+        <td class="${highlight(row1.info, row2.info)}">${escapeHtml(row1.info)}</td>
+        <td class="${highlight(row1.impact, row2.impact)}">${escapeHtml(row1.impact)}</td>
+        <td class="${highlight(row2.info, row1.info)}">${escapeHtml(row2.info)}</td>
+        <td class="${highlight(row2.impact, row1.impact)}">${escapeHtml(row2.impact)}</td>
+      </tr>
+    `;
+  }).join('');
+
+  results.innerHTML = `
+    <div class="card mb-4">
+      <h2 class="mb-2">Quote Comparison</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Name:</strong> ${escapeHtml(quote1.name)}</p>
+          <p><strong>Insurance Type:</strong> ${escapeHtml(quote1.type)}</p>
+          <div class="alert alert-success">
+            <strong>Monthly Premium: ${formatCurrency(quote1.basePremium)}</strong><br>
+            <strong>Annual Premium: ${formatCurrency(quote1.basePremium * 12)}</strong>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Name:</strong> ${escapeHtml(quote2.name)}</p>
+          <p><strong>Insurance Type:</strong> ${escapeHtml(quote2.type)}</p>
+          <div class="alert alert-success">
+            <strong>Monthly Premium: ${formatCurrency(quote2.basePremium)}</strong><br>
+            <strong>Annual Premium: ${formatCurrency(quote2.basePremium * 12)}</strong>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped mt-3">
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th colspan="2">First Quote</th>
+            <th colspan="2">Second Quote</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Your Info</th>
+            <th>Impact</th>
+            <th>Your Info</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+      <button id="getAnotherQuoteBtn" class="btn btn-secondary mt-3">Get Another Quote</button>
+      <p class="disclaimer mt-2">
+        This is a sample estimate for demo purposes only and is not a binding insurance offer.
+      </p>
+    </div>
+  `;
+
+  // Reuse the Get Another Quote button logic
+  document.getElementById('getAnotherQuoteBtn').addEventListener('click', () => {
+    quoteForm.reset();
+    document.getElementById('insuranceType').value = 'auto';
+    document.getElementById('radio-auto').checked = true;
+    autoFields.classList.remove('hidden');
+    homeFields.classList.add('hidden');
+    lifeFields.classList.add('hidden');
+    clearValidation();
+    results.classList.add('hidden');
+    results.innerHTML = '';
+    window.scrollTo({ top: quoteForm.offsetTop, behavior: 'smooth' });
+    isComparing = false;
+    firstQuote = null;
+  });
+}
 
   results.classList.remove('hidden');
   results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Render the Saved Quotes section below the results
+function renderSavedQuotes() {
+  const section = document.getElementById('savedQuotesSection');
+  if (!section) return;
+  const saved = JSON.parse(localStorage.getItem('savedQuotes')) || [];
+  if (saved.length === 0) {
+    section.innerHTML = '<h4>Saved Quotes</h4><p>No saved quotes yet.</p>';
+    return;
+  }
+  section.innerHTML = '<h4>Saved Quotes</h4>' +
+    '<ul class="list-group mb-2">' +
+    saved.map((q, i) => `
+      <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+        <div>
+          <strong>${escapeHtml(q.name)}</strong> - ${escapeHtml(q.type.charAt(0).toUpperCase() + q.type.slice(1))}<br>
+          <span>Monthly: ${formatCurrency(q.basePremium)} | Annual: ${formatCurrency(q.annualPremium)}<br>Date: ${escapeHtml(q.date)}</span>
+        </div>
+        <div class="mt-2 mt-md-0">
+          <button class="btn btn-sm btn-outline-info me-2" onclick="window.loadSavedQuote(${i})">View</button>
+          <button class="btn btn-sm btn-outline-danger" onclick="window.deleteSavedQuote(${i})">Delete</button>
+        </div>
+      </li>
+    `).join('') + '</ul>';
+}
+
+// Load a saved quote into the results section
+window.loadSavedQuote = function(idx) {
+  const saved = JSON.parse(localStorage.getItem('savedQuotes')) || [];
+  const q = saved[idx];
+  if (!q) return;
+  renderQuoteSummary(q.name, q.type, q.basePremium, q.breakdown);
+}
+
+// Delete a saved quote
+window.deleteSavedQuote = function(idx) {
+  let saved = JSON.parse(localStorage.getItem('savedQuotes')) || [];
+  saved.splice(idx, 1);
+  localStorage.setItem('savedQuotes', JSON.stringify(saved));
+  renderSavedQuotes();
 }
 
 // Helper to build breakdown table rows safely
