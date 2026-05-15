@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insurance Quote App</title>
+    <link rel="stylesheet" href="css/quote.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <header>
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                    <i class="bi bi-shield-fill" style="font-size: 1.7rem;"></i>
+                    Pinnacle Shield Insurance
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="quote.html">Get a quote</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="faq.html">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container py-5">
+      <h1 class="text-center mb-3">Get Your Insurance Quote</h1>
+      <p class="text-center mb-4">Please fill out the form below to receive your personalized insurance quote.</p>
+      <div class="mb-4 text-center">
+        <div class="btn-group" role="group" aria-label="Insurance Type">
+          <input type="radio" class="btn-check" name="insuranceType" id="radio-auto" value="auto" autocomplete="off" checked>
+          <label class="btn btn-outline-success" for="radio-auto" style="font-size:1.1rem;">
+            🚗 <span class="fw-bold">Auto Insurance</span>
+          </label>
+          <input type="radio" class="btn-check" name="insuranceType" id="radio-home" value="home" autocomplete="off">
+          <label class="btn btn-outline-primary" for="radio-home" style="font-size:1.1rem;">
+            🏠 <span class="fw-bold">Home Insurance</span>
+          </label>
+          <input type="radio" class="btn-check" name="insuranceType" id="radio-life" value="life" autocomplete="off">
+          <label class="btn btn-outline-warning" for="radio-life" style="font-size:1.1rem;">
+            ❤️‍🩹 <span class="fw-bold">Life Insurance</span>
+          </label>
+        </div>
+    </div>
+
+    <div id="auto-form-container">
+        <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                <h1 class="h4 mb-4">Auto Insurance Quote Form</h1>
+                <form id="auto-form">
+                <!-- Full Name -->
+                <div class="mb-3">
+                    <label for="auto-fullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="auto-fullName" name="fullName" required minlength="2">
+                </div>
+
+                <!-- Age -->
+                <div class="mb-3">
+                    <label for="auto-age" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="auto-age" name="age" required min="16" max="100">
+                </div>
+
+                <!-- ZIP Code -->
+                <div class="mb-3">
+                    <label for="auto-zipCode" class="form-label">ZIP Code</label>
+                    <input type="text" class="form-control" id="auto-zipCode" name="zipCode" required minlength="5" maxlength="5" pattern="[0-9]{5}">
+                </div>
+
+                <!-- Vehicle Year -->
+                <div class="mb-3">
+                    <label for="vehicleYear" class="form-label">Vehicle Year</label>
+                    <input type="number" class="form-control" id="vehicleYear" name="vehicleYear" required min="1990" max="2026">
+                </div>
+
+                <!-- Vehicle Make -->
+                <div class="mb-3">
+                    <label for="vehicleMake" class="form-label">Vehicle Make</label>
+                    <select class="form-select" id="vehicleMake" name="vehicleMake" required>
+                    <option value="" selected disabled>Choose...</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Ford">Ford</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Tesla">Tesla</option>
+                    <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Vehicle Model -->
+                <div class="mb-3">
+                    <label for="vehicleModel" class="form-label">Vehicle Model</label>
+                    <input type="text" class="form-control" id="vehicleModel" name="vehicleModel" required>
+                </div>
+
+                <!-- Annual Mileage -->
+                <div class="mb-3">
+                    <label for="annualMileage" class="form-label">Annual Mileage</label>
+                    <select class="form-select" id="annualMileage" name="annualMileage" required>
+                    <option value="" selected disabled>Choose...</option>
+                    <option value="Under 5000">Under 5,000</option>
+                    <option value="5000-10000">5,000–10,000</option>
+                    <option value="10001-15000">10,001–15,000</option>
+                    <option value="15001-20000">15,001–20,000</option>
+                    <option value="Over 20000">Over 20,000</option>
+                    </select>
+                </div>
+
+                <!-- Driving Record -->
+                <div class="mb-3">
+                    <label for="drivingRecord" class="form-label">Driving Record</label>
+                    <select class="form-select" id="drivingRecord" name="drivingRecord" required>
+                    <option value="" selected disabled>Choose...</option>
+                    <option value="Clean">Clean</option>
+                    <option value="1 Ticket">1 Ticket</option>
+                    <option value="2+ Tickets">2+ Tickets</option>
+                    <option value="Accident in Last 3 Years">Accident in Last 3 Years</option>
+                    </select>
+                </div>
+
+                <!-- Coverage Level -->
+                <div class="mb-4">
+                    <label class="form-label d-block">Coverage Level</label>
+
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" name="coverageLevel" id="coverageBasic" value="Basic" required>
+                    <label class="form-check-label" for="coverageBasic">Basic</label>
+                    </div>
+
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" name="coverageLevel" id="coverageStandard" value="Standard">
+                    <label class="form-check-label" for="coverageStandard">Standard</label>
+                    </div>
+
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" name="coverageLevel" id="coveragePremium" value="Premium">
+                    <label class="form-check-label" for="coveragePremium">Premium</label>
+                    </div>
+                </div>
+                    <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary px-5">Get Quote</button>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <button type="button" class="btn btn-outline-secondary w-100" id="save-auto-quote">Save Quote</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div id="home-form-container">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                        <h1 class="h4 mb-4">Home Insurance Quote Form</h1>
+                        <form id="home-form">
+                        <!-- Full Name -->
+                        <div class="mb-3">
+                            <label for="home-fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="home-fullName" name="fullName" required minlength="2">
+                        </div>
+
+                        <!-- Age -->
+                        <div class="mb-3">
+                            <label for="home-age" class="form-label">Age</label>
+                            <input type="number" class="form-control" id="home-age" name="age" required min="18" max="100">
+                        </div>
+
+                        <!-- ZIP Code -->
+                        <div class="mb-3">
+                            <label for="home-zipCode" class="form-label">ZIP Code</label>
+                            <input type="text" class="form-control" id="home-zipCode" name="zipCode" required minlength="5" maxlength="5" pattern="[0-9]{5}">
+                        </div>
+
+                        <!-- Home Value -->
+                        <div class="mb-3">
+                            <label for="homeValue" class="form-label">Home Value</label>
+                            <input type="number" class="form-control" id="homeValue" name="homeValue" required min="50000" max="999999999999999">
+                        </div>
+
+                        <!-- Year Built -->
+                        <div class="mb-3">
+                            <label for="yearBuilt" class="form-label">Year Built</label>
+                            <input type="number" class="form-control" id="yearBuilt" name="yearBuilt" required min="1900" max="2026">
+                        </div>
+
+                        <!-- Square Footage -->
+                        <div class="mb-3">
+                            <label for="squareFootage" class="form-label">Square Footage</label>
+                            <input type="number" class="form-control" id="squareFootage" name="squareFootage" required min="500" max="10000">
+                        </div>
+
+                        <!-- Construction Type -->
+                        <div class="mb-3">
+                            <label for="constructionType" class="form-label">Construction Type</label>
+                            <select class="form-select" id="constructionType" name="constructionType" required>
+                            <option value="" selected disabled>Choose...</option>
+                            <option value="Wood Frame">Wood Frame</option>
+                            <option value="Brick">Brick</option>
+                            <option value="Concrete">Concrete</option>
+                            <option value="Steel">Steel</option>
+                            </select>
+                        </div>
+
+                        <!-- Coverage Level -->
+                        <div class="mb-3">
+                            <label class="form-label d-block">Coverage Level</label>
+
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="coverageLevel" id="coverageBasic" value="Basic" required>
+                            <label class="form-check-label" for="coverageBasic">Basic</label>
+                            </div>
+
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="coverageLevel" id="coverageStandard" value="Standard">
+                            <label class="form-check-label" for="coverageStandard">Standard</label>
+                            </div>
+
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="coverageLevel" id="coveragePremium" value="Premium">
+                            <label class="form-check-label" for="coveragePremium">Premium</label>
+                            </div>
+                        </div>
+
+                        <!-- Checkboxes -->
+                        <div class="mb-3">
+                            <label class="form-label d-block">Discounts</label>
+
+                            <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="hasSecuritySystem" name="hasSecuritySystem">
+                            <label class="form-check-label" for="hasSecuritySystem">
+                                Has Security System
+                            </label>
+                            </div>
+
+                            <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="hasFireSprinklers" name="hasFireSprinklers">
+                            <label class="form-check-label" for="hasFireSprinklers">
+                                Has Fire Sprinklers
+                            </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Submit</button>
+                            <div class="mt-3 text-center">
+                                <button type="button" class="btn btn-outline-secondary w-100" id="save-home-quote">Save Quote</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <footer class="py-5 bg-dark text-light">
+        <div class="container">
+            <div class="row text-center text-lg-start">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="fw-bold mb-3 d-flex align-items-center justify-content-center justify-content-lg-start" style="white-space: nowrap;">
+                        <i class="bi bi-shield-fill me-2" style="font-size: 1.5rem; color: #6c757d;"></i>
+                        Pinnacle Shield Insurance
+                    </h3>
+                    <p class="mb-1">Protecting families since 1985.</p>
+                    <p class="mb-0">Headquartered in Hartford, CT.</p>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="fw-bold mb-3 text-white">Quick Links</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="quote.html" class="text-white text-decoration-none">Get a quote</a></li>
+                        <li><a href="about.html" class="text-white text-decoration-none">About us</a></li>
+                        <li><a href="faq.html" class="text-white text-decoration-none">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h3 class="fw-bold mb-3">Contact Us</h3>
+                    <p class="mb-1"><i class="bi bi-telephone-fill me-2"></i>Phone: (123) 456-7890</p>
+                    <p class="mb-1"><i class="bi bi-envelope-fill me-2"></i>Email: info@pinnacleshield.com</p>
+                    <p class="mb-0">&copy; 2024 Pinnacle Shield Insurance. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="js/quote.js"></script>
+</body>
+</html>
