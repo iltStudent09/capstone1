@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FAQ | Pinnacle Shield Insurance</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+				<a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+					<i class="bi bi-shield-fill" style="font-size: 1.7rem;"></i>
+					Pinnacle Shield Insurance
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="quote.html">Get a quote</a></li>
+						<li class="nav-item"><a class="nav-link" href="about.html">About us</a></li>
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="faq.html">FAQ</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<section class="py-5 bg-light">
+			<div class="container">
+				<h1 class="display-4 text-center mb-4">Frequently Asked Questions</h1>
+				<p class="lead text-center mb-4">Find answers to common questions about our auto, home, and life insurance products.</p>
+				<div class="row justify-content-center mb-4">
+					<div class="col-md-8">
+						<input type="text" id="faqSearch" class="form-control form-control-lg" placeholder="Search FAQs...">
+					</div>
+				</div>
+				<div id="faqError" class="alert alert-danger d-none" role="alert"></div>
+				<div class="accordion" id="faqAccordion">
+					<!-- Auto Insurance FAQ -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="autoHeading">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#autoCollapse" aria-expanded="true" aria-controls="autoCollapse">
+								Auto Insurance
+							</button>
+						</h2>
+						<div id="autoCollapse" class="accordion-collapse collapse show" aria-labelledby="autoHeading" data-bs-parent="#faqAccordion">
+							<div class="accordion-body" data-category="auto">
+								<strong>What does auto insurance cover?</strong><br>
+								Our auto insurance covers liability, collision, comprehensive, uninsured motorists, and more. You can customize your policy to fit your needs.<br><br>
+								<strong>How do I file a claim?</strong><br>
+								You can file a claim online, by phone, or through our mobile app. Our team will guide you through every step.<br><br>
+								<strong>Can I add multiple vehicles to my policy?</strong><br>
+								Yes! We offer multi-vehicle discounts and make it easy to manage all your cars under one policy.<br><br>
+								<strong>Do you offer roadside assistance?</strong><br>
+								Yes, roadside assistance is available as an add-on to your policy for towing, flat tires, and more.<br><br>
+								<strong>How can I lower my auto insurance premium?</strong><br>
+								Safe driving, bundling policies, and maintaining a good credit score can help reduce your premium.
+							</div>
+						</div>
+					</div>
+					<!-- Home Insurance FAQ -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="homeHeading">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#homeCollapse" aria-expanded="false" aria-controls="homeCollapse">
+								Home Insurance
+							</button>
+						</h2>
+						<div id="homeCollapse" class="accordion-collapse collapse" aria-labelledby="homeHeading" data-bs-parent="#faqAccordion">
+							<div class="accordion-body" data-category="home">
+								<strong>What types of homes do you insure?</strong><br>
+								We cover houses, condos, apartments, and rental properties. Flexible plans are available for owners and renters.<br><br>
+								<strong>Does home insurance cover natural disasters?</strong><br>
+								Standard policies cover many risks, but you can add extra protection for floods, earthquakes, and more.<br><br>
+								<strong>How do I update my coverage?</strong><br>
+								Contact our support team or log in to your account to make changes to your policy at any time.<br><br>
+								<strong>What is not covered by home insurance?</strong><br>
+								Typical exclusions include normal wear and tear, pest damage, and certain natural disasters unless you add extra coverage.<br><br>
+								<strong>Can I get a discount for home security systems?</strong><br>
+								Yes, installing security systems or smoke detectors may qualify you for discounts.
+							</div>
+						</div>
+					</div>
+					<!-- Life Insurance FAQ -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="lifeHeading">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lifeCollapse" aria-expanded="false" aria-controls="lifeCollapse">
+								Life Insurance
+							</button>
+						</h2>
+						<div id="lifeCollapse" class="accordion-collapse collapse" aria-labelledby="lifeHeading" data-bs-parent="#faqAccordion">
+							<div class="accordion-body" data-category="life">
+								<strong>What types of life insurance do you offer?</strong><br>
+								We offer term life, whole life, and universal life insurance. Our advisors can help you choose the best option.<br><br>
+								<strong>Do I need a medical exam?</strong><br>
+								Some policies require a medical exam, but we also offer no-exam options for qualified applicants.<br><br>
+								<strong>How much coverage do I need?</strong><br>
+								Coverage needs vary by person. We recommend considering your income, debts, and family needs. Our online tools can help you estimate the right amount.<br><br>
+								<strong>Can I change my beneficiaries?</strong><br>
+								Yes, you can update your beneficiaries at any time by contacting us or through your online account.<br><br>
+								<strong>What happens if I miss a payment?</strong><br>
+								Most policies have a grace period. Contact us as soon as possible to avoid a lapse in coverage.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+			</main>
+			<footer class="bg-dark text-white text-center py-3 mt-5">
+					<div class="container">
+							&copy; 2026 Pinnacle Shield Insurance. All rights reserved.
+					</div>
+			</footer>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+			<script>
+			// Enhanced FAQ Search Functionality
+			document.addEventListener('DOMContentLoaded', function() {
+				const searchInput = document.getElementById('faqSearch');
+				const errorDiv = document.getElementById('faqError');
+				const accordion = document.getElementById('faqAccordion');
+				const categories = [
+					{ id: 'autoCollapse', body: null, heading: 'Auto Insurance' },
+					{ id: 'homeCollapse', body: null, heading: 'Home Insurance' },
+					{ id: 'lifeCollapse', body: null, heading: 'Life Insurance' }
+				];
+				categories.forEach(cat => {
+					cat.body = document.querySelector(`#${cat.id} .accordion-body`);
+					// Always ensure the accordion item is visible for search
+					cat.item = cat.body.closest('.accordion-item');
+				});
+
+				searchInput.addEventListener('input', function() {
+					const query = this.value.trim().toLowerCase();
+					let anyMatch = false;
+					errorDiv.classList.add('d-none');
+					categories.forEach(cat => {
+						let found = false;
+						// Split the body into questions/answers
+						const originalHTML = cat.body.getAttribute('data-original') || cat.body.innerHTML;
+						if (!cat.body.getAttribute('data-original')) cat.body.setAttribute('data-original', originalHTML);
+						if (!query) {
+							cat.body.innerHTML = originalHTML;
+							cat.item.style.display = '';
+							// Collapse all except the first by default
+							if (cat.id === 'autoCollapse') {
+								cat.body.parentElement.classList.add('show');
+							} else {
+								cat.body.parentElement.classList.remove('show');
+							}
+							return;
+						}
+						// Find all <strong>Question</strong>Answer<br><br>
+						const regex = /<strong>(.*?)<\/strong><br>(.*?)(?=<strong>|$)/gs;
+						let matches = [...originalHTML.matchAll(regex)];
+						let filtered = matches.filter(m => m[1].toLowerCase().includes(query) || m[2].toLowerCase().includes(query));
+						if (filtered.length > 0) {
+							found = true;
+							anyMatch = true;
+							cat.body.innerHTML = filtered.map(m => `<strong>${m[1]}</strong><br>${m[2]}`).join('<br><br>');
+							cat.item.style.display = '';
+							// Expand this category
+							cat.body.parentElement.classList.add('show');
+						} else {
+							cat.body.innerHTML = `<div class='text-danger fw-bold'>No results found in ${cat.heading}.</div>`;
+							cat.item.style.display = '';
+							cat.body.parentElement.classList.add('show');
+						}
+					});
+					if (!anyMatch && query) {
+						errorDiv.textContent = 'No FAQs found matching your search.';
+						errorDiv.classList.remove('d-none');
+					}
+				});
+			});
+			</script>
+	</body>
+	</html>
