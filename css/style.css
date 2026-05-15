@@ -1,3 +1,18 @@
+/* Restrict hamburger (navbar-toggler) width on small screens */
+@media (max-width: 991.98px) {
+	.navbar-toggler {
+		width: 44px;
+		min-width: 44px;
+		max-width: 44px;
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+		margin-left: auto;
+		margin-right: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
 @media (max-width: 992px) {
 	.navbar-brand {
 		font-size: 1.5rem;
