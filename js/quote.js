@@ -448,24 +448,17 @@ function renderQuoteSummary(name, type, basePremium, breakdown) {
   else if (type === 'home') typeLabel = 'Home Insurance';
   else if (type === 'life') typeLabel = 'Life Insurance';
 
-  let tableRows = breakdown.map(row => `
-    <tr>
-      <td>${escapeHtml(row.factor)}</td>
-      <td>${escapeHtml(row.info)}</td>
-      <td>${escapeHtml(row.impact)}</td>
-    </tr>
-  `).join('');
-
   const annualPremium = basePremium * 12;
 
+  // Build the summary card
   results.innerHTML = `
     <div class="card mb-4">
       <h2 class="mb-2">Quote Summary</h2>
-      <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-      <p><strong>Insurance Type:</strong> ${escapeHtml(typeLabel)}</p>
+      <p><strong>Name:</strong> <span id="summaryName"></span></p>
+      <p><strong>Insurance Type:</strong> <span id="summaryType"></span></p>
       <div class="alert alert-success mt-3">
-        <strong>Estimated Monthly Premium: ${formatCurrency(basePremium)}</strong><br>
-        <strong>Estimated Annual Premium: ${formatCurrency(annualPremium)}</strong>
+        <strong>Estimated Monthly Premium: <span id="summaryMonthly"></span></strong><br>
+        <strong>Estimated Annual Premium: <span id="summaryAnnual"></span></strong>
       </div>
       <table class="table table-striped mt-3">
         <thead>
@@ -475,17 +468,57 @@ function renderQuoteSummary(name, type, basePremium, breakdown) {
             <th>Impact</th>
           </tr>
         </thead>
-        <tbody>
-          ${tableRows}
-        </tbody>
+        <tbody id="breakdownTableBody"></tbody>
       </table>
+      <button id="getAnotherQuoteBtn" class="btn btn-secondary mt-3">Get Another Quote</button>
       <p class="disclaimer mt-2">
         This is a sample estimate for demo purposes only and is not a binding insurance offer.
       </p>
     </div>
   `;
+
+  // Set summary values safely
+  document.getElementById('summaryName').textContent = name;
+  document.getElementById('summaryType').textContent = typeLabel;
+  document.getElementById('summaryMonthly').textContent = formatCurrency(basePremium);
+  document.getElementById('summaryAnnual').textContent = formatCurrency(annualPremium);
+
+  // Build breakdown table rows safely
+  const tbody = document.getElementById('breakdownTableBody');
+  breakdown.forEach(row => addBreakdownRow(tbody, row.factor, row.info, row.impact));
+
+  // Add event listener for Get Another Quote button
+  document.getElementById('getAnotherQuoteBtn').addEventListener('click', () => {
+    quoteForm.reset();
+    // Reset selects to first option if needed
+    document.getElementById('insuranceType').value = 'auto';
+    document.getElementById('radio-auto').checked = true;
+    autoFields.classList.remove('hidden');
+    homeFields.classList.add('hidden');
+    lifeFields.classList.add('hidden');
+    clearValidation();
+    results.classList.add('hidden');
+    results.innerHTML = '';
+    window.scrollTo({ top: quoteForm.offsetTop, behavior: 'smooth' });
+  });
+
   results.classList.remove('hidden');
   results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Helper to build breakdown table rows safely
+function addBreakdownRow(tbody, factor, userValue, impact) {
+  var row = document.createElement('tr');
+  var td1 = document.createElement('td');
+  var td2 = document.createElement('td');
+  var td3 = document.createElement('td');
+  td1.textContent = factor;
+  td2.textContent = userValue;
+  td3.textContent = impact;
+  row.appendChild(td1);
+  row.appendChild(td2);
+  row.appendChild(td3);
+  tbody.appendChild(row);
 }
 
 function getValue(id) {
