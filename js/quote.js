@@ -456,12 +456,18 @@ function renderQuoteSummary(name, type, basePremium, breakdown) {
     </tr>
   `).join('');
 
+  const annualPremium = basePremium * 12;
+
   results.innerHTML = `
     <div class="card mb-4">
       <h2 class="mb-2">Quote Summary</h2>
       <p><strong>Name:</strong> ${escapeHtml(name)}</p>
       <p><strong>Insurance Type:</strong> ${escapeHtml(typeLabel)}</p>
-      <table class="table table-striped">
+      <div class="alert alert-success mt-3">
+        <strong>Estimated Monthly Premium: ${formatCurrency(basePremium)}</strong><br>
+        <strong>Estimated Annual Premium: ${formatCurrency(annualPremium)}</strong>
+      </div>
+      <table class="table table-striped mt-3">
         <thead>
           <tr>
             <th>Factor</th>
@@ -473,9 +479,6 @@ function renderQuoteSummary(name, type, basePremium, breakdown) {
           ${tableRows}
         </tbody>
       </table>
-      <div class="alert alert-success mt-3">
-        <strong>Estimated Monthly Premium: ${formatCurrency(basePremium)}</strong>
-      </div>
       <p class="disclaimer mt-2">
         This is a sample estimate for demo purposes only and is not a binding insurance offer.
       </p>
