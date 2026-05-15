@@ -1,5 +1,43 @@
 # Architecture Decisions for Pinnacle Shield Insurance Quote App
 
+---
+
+## Component / Page Organization
+
+The app is organized by clear separation of concerns:
+- **Pages**: Each major function (Home, About, FAQ, Quote) is a separate HTML file for clarity and maintainability.
+- **Components**: While not using a frontend framework, reusable UI elements (like the quote summary card, breakdown table, and navigation) are implemented as modular HTML/CSS/JS blocks. This makes it easier to update or extend features without affecting unrelated parts of the app.
+- **Assets**: CSS and JS files are organized by feature (e.g., quote logic in js/quote.js, general styles in css/style.css), supporting modularity and easier debugging.
+
+---
+
+## Data Flow Explanation
+
+The app uses a simple, client-side data flow:
+- **Form Input**: User input is collected via HTML forms and validated in the browser using JavaScript.
+- **State Management**: Data is held in memory for the current session (e.g., for quote comparison) and persisted in localStorage for saved quotes.
+- **UI Updates**: All updates to the UI (quote results, saved quotes, comparison) are handled by manipulating the DOM directly in JavaScript, ensuring immediate feedback without page reloads.
+- **No Backend**: All logic and data storage are client-side, which simplifies deployment and privacy but limits advanced features like user accounts or server-side validation.
+
+---
+
+## Deployment Approach
+
+The app is deployed as a static site using GitHub Pages, with automated validation and deployment via GitHub Actions:
+- **Static Hosting**: No server-side code is required, making deployment fast, secure, and cost-free.
+- **CI/CD**: The validate-and-deploy.yml workflow checks for required files and HTML structure before deploying, reducing the risk of broken builds.
+- **Branching**: Feature branches are used for development, with deployment triggered on merges to main, supporting safe and collaborative development.
+
+---
+
+## Key Decisions and Trade-Offs
+
+- **Static Site vs. Dynamic Backend**: Chose a static site for simplicity, speed, and privacy, at the cost of advanced features like authentication or server-side data storage.
+- **No Framework**: Opted for vanilla JS and Bootstrap to minimize dependencies and learning curve, but this can make scaling and state management harder as the app grows.
+- **localStorage for Persistence**: Enables saving quotes without a backend, but data is device-specific and not secure for sensitive information.
+- **Accessibility and Responsiveness**: Prioritized by using Bootstrap and semantic HTML, but deeper accessibility testing could further improve the experience.
+- **Manual DOM Manipulation**: Simple for a small app, but would become unwieldy for larger, more interactive projects—hence the suggestion to use a frontend framework in the future.
+
 ## Overview
 This document explains the key architectural and design decisions made during the development of the Pinnacle Shield Insurance Quote App. The goal is to provide transparency and rationale for choices that impact maintainability, scalability, user experience, and security.
 
